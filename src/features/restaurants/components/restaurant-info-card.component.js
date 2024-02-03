@@ -2,6 +2,9 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import { Card, Text } from "react-native-paper";
+import { SvgXml } from "react-native-svg";
+
+import star from "../../../../assets/star";
 
 const RestaurantCard = styled(Card)`
   background: ${(props) => props.theme.colors.bg.primary};
@@ -9,6 +12,22 @@ const RestaurantCard = styled(Card)`
 
 const RestaurantCardCover = styled(Card.Cover)`
   background: ${(props) => props.theme.colors.bg.primary};
+`;
+
+const RestaurantCardTitle = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.title};
+`;
+
+const RestaurantCardAddress = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.body};
+`;
+
+const Rating = styled.View`
+  flex-direction: row;
+  padding-top: ${(props) => props.theme.space[2]};
+  padding-bottom: ${(props) => props.theme.space[2]};
 `;
 
 export const RestaurntInfo = ({ restaurant = {} }) => {
@@ -23,6 +42,8 @@ export const RestaurntInfo = ({ restaurant = {} }) => {
     rating = 5,
     isClosedTemporarily = false,
   } = restaurant;
+
+  const ratingArray = Array.from(new Array(Math.floor(rating)));
   return (
     <RestaurantCard elevation={5}>
       <RestaurantCardCover
@@ -32,8 +53,15 @@ export const RestaurntInfo = ({ restaurant = {} }) => {
         }}
       />
       <Card.Content>
-        <Text variant="titleLarge">{name}</Text>
-        <Text variant="bodyMedium">{address}</Text>
+        <RestaurantCardTitle variant="titleLarge">{name}</RestaurantCardTitle>
+        <Rating>
+          {ratingArray.map(() => (
+            <SvgXml xml={star} width={20} height={20} />
+          ))}
+        </Rating>
+        <RestaurantCardAddress variant="bodyMedium">
+          {address}
+        </RestaurantCardAddress>
       </Card.Content>
     </RestaurantCard>
   );
