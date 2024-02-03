@@ -4,11 +4,11 @@ import styled from "styled-components/native";
 import { Card, Text } from "react-native-paper";
 
 const RestaurantCard = styled(Card)`
-  background: white;
+  background: ${(props) => props.theme.colors.bg.primary};
 `;
 
 const RestaurantCardCover = styled(Card.Cover)`
-  background: white;
+  background: ${(props) => props.theme.colors.bg.primary};
 `;
 
 export const RestaurntInfo = ({ restaurant = {} }) => {
